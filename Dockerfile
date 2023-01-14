@@ -1,6 +1,7 @@
 FROM python:3.9-slim
 COPY  ./src /SuperCheapBL/src
 COPY ./requirements.txt /SuperCheapBL
+COPY ./signup.py /SuperCheapBL
 
 WORKDIR /SuperCheapBL
 
