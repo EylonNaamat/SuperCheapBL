@@ -5,6 +5,7 @@ import sched, time
 from threading import Thread
 import asyncio
 from modules.signup import SignUp
+from modules.signin import SignIn
 
 app = FastAPI()
 
@@ -59,6 +60,14 @@ async def get_city(super_ID:str, super_name:str, super_city:str, comments_size:s
     
     return insertion_status
 
+@app.get("/signin")
+async def get_sighin_user(username:str, password:str):
+    print("11")
+    mySingIn = SignIn(username, password)
+    print("22")
+    stam =  mySingIn.dosighin()
+    print("33")
+    return stam
 
 
 
