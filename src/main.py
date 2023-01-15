@@ -4,7 +4,7 @@ from fastapi import FastAPI
 import sched, time
 from threading import Thread
 import asyncio
-from signup import SignUp
+from modules.signup import SignUp
 
 app = FastAPI()
 
@@ -28,19 +28,18 @@ async def get_user(first_name:str, last_name:str, email:str, username:str, passw
     'super_id':super_id}
     
     sign_up = SignUp(USER, {})
+    
+    insertion_status = sign_up.insert_user()
 
-    is_exists = sign_up.check_user_exists()
+    return insertion_status
 
-    if is_exists["user"] == "exists":
-        return is_exists
-    else:
-        insertion_status = sign_up.insert_user_to_fb()
-        return insertion_status
+    
 
 # http://localhost:5000/signup/super?super_ID=123456&super_name=hatzlaha&super_city=Ariel
 @app.get("/signup/super")
-async def get_super(super_ID:str, super_name:str, super_city:str):
-    SUPER = {'super_ID':super_ID, 'super_name':super_name, 'super_city':super_city}
+async def get_super(super_ID:str, super_name:str, super_city:str, comments_size:str, super_rating:str):
+    SUPER = {'super_ID':super_ID, 'super_name':super_name, 'super_city':super_city, 
+            'comments_size':comments_size, 'super_rating':super_rating}
     
     sign_up = SignUp({}, SUPER)
 
@@ -50,8 +49,9 @@ async def get_super(super_ID:str, super_name:str, super_city:str):
 
 # http://localhost:5000/signup/city?super_ID=123456&super_name=hatzlaha&super_city=Ariel
 @app.get("/signup/city")
-async def get_super(super_ID:str, super_name:str, super_city:str):
-    SUPER = {'super_ID':super_ID, 'super_name':super_name, 'super_city':super_city}
+async def get_city(super_ID:str, super_name:str, super_city:str, comments_size:str, super_rating:str):
+    SUPER = {'super_ID':super_ID, 'super_name':super_name, 'super_city':super_city, 
+            'comments_size':comments_size, 'super_rating':super_rating}
     
     sign_up = SignUp({}, SUPER)
 
