@@ -7,6 +7,7 @@ import asyncio
 from modules.signup import SignUp
 from modules.signin import SignIn
 from modules.mysuper import MySuper
+from modules.myaccount import MyAccount
 from modules.InsertItem import InsertItem
 from modules.DeleteItem import DeleteItem
 
@@ -37,6 +38,15 @@ async def set_super_info(Super_Id:str, super_name:str, super_city:str):
         tempMySuper.moveSuper(old_super.get("super_city"),super_city)
 
     return stam
+
+@app.get("/myaccount/setuser")
+async def my_acc_set_user(first_name:str, last_name:str, email:str, username:str, password:str, city:str, birth_date:str, gender:str, is_manager:str, super_id:str):
+    temp_account = MyAccount({'first_name':first_name, 'last_name':last_name, 'email':email, 'username':username,
+            'password':password, 'city':city, 'birth_date':birth_date, 'gender':gender, 'is_manager':is_manager,
+            'super_id':super_id})
+    stam = temp_account.change_user()
+    return stam
+    
 
     
 # //////////////////////michael////////////////////////////
