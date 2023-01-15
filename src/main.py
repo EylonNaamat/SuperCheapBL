@@ -7,6 +7,8 @@ import asyncio
 from modules.signup import SignUp
 from modules.signin import SignIn
 from modules.mysuper import MySuper
+from modules.InsertItem import InsertItem
+from modules.DeleteItem import DeleteItem
 
 app = FastAPI()
 
@@ -108,3 +110,27 @@ def read_item(item_id: int, q: Union[str, None] = None):
     data = r.json()
     # print(data)
     return data
+
+
+#///////////////// Ben/////////////////////////////
+@app.get("/addItem")
+async def additem(itemname:str, price:str, company:str,super_id:str):
+    ITEM = {'item_name':itemname, 'price':price, 'company':company,'super_id':super_id}
+    
+    insert_item = InsertItem(ITEM)
+
+    insertion_status = insert_item.insert_item_to_FB()
+
+    return insertion_status
+
+@app.get("/deleteItem")
+async def additem(itemname:str, company:str,super_id:str):
+    ITEM = {'item_name':itemname, 'company':company,'super_id':super_id}
+    
+    delete_item = DeleteItem(ITEM)
+
+    insertion_status = delete_item.delete_item_from_DB()
+
+    return insertion_status
+
+    #///////////////////////////////////////////////////
