@@ -8,6 +8,7 @@ from modules.signup import SignUp
 from modules.signin import SignIn
 from modules.mysuper import MySuper
 from modules.myaccount import MyAccount
+from modules.addcomment import AddComment
 from modules.InsertItem import InsertItem
 from modules.DeleteItem import DeleteItem
 
@@ -45,6 +46,13 @@ async def my_acc_set_user(first_name:str, last_name:str, email:str, username:str
             'password':password, 'city':city, 'birth_date':birth_date, 'gender':gender, 'is_manager':is_manager,
             'super_id':super_id})
     stam = temp_account.change_user()
+    return stam
+
+@app.get("/addcomment")
+async def add_comment(id_comment:str, super_name:str, super_city:str, user_username:str, grade, review:str):
+    tempaddComment = AddComment({'id_comment':id_comment, 'super_name':super_name, 'super_city':super_city, 'user_username':user_username,
+            'grade':grade, 'review':review})
+    stam =  tempaddComment.addCommentToDataBase()
     return stam
     
 
