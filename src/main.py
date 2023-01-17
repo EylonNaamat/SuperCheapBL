@@ -9,6 +9,8 @@ from modules.signin import SignIn
 from modules.mysuper import MySuper
 from modules.myaccount import MyAccount
 from modules.addcomment import AddComment
+from modules.displaycomment import DisplayComment
+from modules.displaysales import DisplaySales
 from modules.InsertItem import InsertItem
 from modules.DeleteItem import DeleteItem
 from modules.dosale import DoSale
@@ -60,8 +62,19 @@ async def add_comment(id_comment:str, super_name:str, super_city:str, user_usern
     stam =  tempaddComment.addCommentToDataBase()
     return stam
     
-
+@app.get("/displaycomment")
+async def display_comment(super_name:str, super_city:str):
+    temp_displaycomment = DisplayComment({"super_name":super_name,"super_city":super_city})
+    stam =  temp_displaycomment.getCommentsfromDataBase()
+    return stam
     
+@app.get("/displaysale")
+async def display_sale(super_name:str, super_city:str):
+    temp_displaysale = DisplaySales({"super_name":super_name,"super_city":super_city})
+    stam =  temp_displaysale.getSalesfromDataBase()
+    return stam
+    
+
 # //////////////////////eylon////////////////////////////
 
 
