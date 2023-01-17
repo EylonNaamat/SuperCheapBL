@@ -11,6 +11,10 @@ from modules.myaccount import MyAccount
 from modules.addcomment import AddComment
 from modules.InsertItem import InsertItem
 from modules.DeleteItem import DeleteItem
+from modules.dosale import DoSale
+from modules.IsCity import IsCity
+from modules.IsItem import IsItem
+
 from modules.display_super import DisplaySuper
 
 app = FastAPI()
@@ -129,9 +133,8 @@ async def additem(itemname:str, price:str, company:str,super_id:str):
     
     insert_item = InsertItem(ITEM)
 
-    insertion_status = insert_item.insert_item_to_FB()
+    return insert_item.insert_item_to_FB()
 
-    return insertion_status
 
 @app.get("/deleteItem")
 async def additem(itemname:str, company:str,super_id:str):
@@ -139,8 +142,28 @@ async def additem(itemname:str, company:str,super_id:str):
     
     delete_item = DeleteItem(ITEM)
 
-    insertion_status = delete_item.delete_item_from_DB()
+    return delete_item.delete_item_from_DB()
 
-    return insertion_status
 
+@app.get("/DoSale")
+def dosale(saleName:str, saleQuantity:str,priceSale:str,company:str,super_id:str):
+    SALE = {'saleName':saleName, 'saleQuantity':saleQuantity,'priceSale':priceSale,'company':company,'super_id':super_id}
+    
+    do_sale = DoSale(SALE)
+
+    return do_sale.insert_sale_to_FB()
+
+
+@app.get("/IsCity")
+def Is_city(city_name:str):
+    CITY={'city_name':city_name}
+
+    is_city=IsCity(CITY)
+    return is_city.get_iscity()
+
+@app.get("/IsItem")
+def Is_city(item_name:str):
+    ITEM={'item_name':item_name}
+    is_item=IsItem(ITEM)
+    return is_item.get_isitem()
     #///////////////////////////////////////////////////
