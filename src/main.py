@@ -11,6 +11,7 @@ from modules.myaccount import MyAccount
 from modules.addcomment import AddComment
 from modules.displaycomment import DisplayComment
 from modules.displaysales import DisplaySales
+from modules.homeagep import HomePage
 from modules.InsertItem import InsertItem
 from modules.DeleteItem import DeleteItem
 from modules.DeleteSale import DeleteSale
@@ -73,6 +74,12 @@ async def display_comment(super_name:str, super_city:str):
 async def display_sale(super_name:str, super_city:str):
     temp_displaysale = DisplaySales({"super_name":super_name,"super_city":super_city})
     stam =  temp_displaysale.getSalesfromDataBase()
+    return stam
+
+@app.get("/getnewcomments")
+async def get_New_Commenst(super_ID:str):
+    temp_HomePage = HomePage({"super_ID":super_ID})
+    stam =  temp_HomePage.getcomments()
     return stam
     
 
