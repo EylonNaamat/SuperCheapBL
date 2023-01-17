@@ -13,6 +13,7 @@ from modules.displaycomment import DisplayComment
 from modules.displaysales import DisplaySales
 from modules.InsertItem import InsertItem
 from modules.DeleteItem import DeleteItem
+from modules.DeleteSale import DeleteSale
 from modules.dosale import DoSale
 from modules.IsCity import IsCity
 from modules.IsItem import IsItem
@@ -150,17 +151,25 @@ async def additem(itemname:str, price:str, company:str,super_id:str):
 
 
 @app.get("/deleteItem")
-async def additem(itemname:str, company:str,super_id:str):
+async def delete_item(itemname:str, company:str,super_id:str):
     ITEM = {'item_name':itemname, 'company':company,'super_id':super_id}
     
     delete_item = DeleteItem(ITEM)
 
-    return delete_item.delete_item_from_DB()
+    return delete_item.delete_item_from_FB()
+
+@app.get("/deleteSale")
+async def delete_sale(sale_name:str,super_id:str):
+    SALE = {'sale_name':sale_name,'super_id':super_id}
+    
+    delete_sale = DeleteSale(SALE)
+
+    return delete_sale.delete_sale_from_FB()
 
 
 @app.get("/DoSale")
-def dosale(saleName:str, saleQuantity:str,priceSale:str,company:str,super_id:str):
-    SALE = {'saleName':saleName, 'saleQuantity':saleQuantity,'priceSale':priceSale,'company':company,'super_id':super_id}
+def dosale(item_name:str, saleQuantity:str,priceSale:str,company:str,sale_name:str,super_id:str):
+    SALE = {'item_name':item_name, 'saleQuantity':saleQuantity,'priceSale':priceSale,'company':company,'sale_name':sale_name,'super_id':super_id}
     
     do_sale = DoSale(SALE)
 
