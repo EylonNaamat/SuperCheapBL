@@ -15,15 +15,12 @@ class SignUp:
             return insertion_status
 
     def check_user_exists(self):
-        print("enter2")
         URL = "http://172.17.0.3:8000/signup/user/checkuserexists"
 
         PARAM = {"username":self.user["username"]}
         r = requests.get(url = URL, params=PARAM)
-        print("get respone")
 
         data = r.json()
-        print(f"data is {data}")
 
         return data
 

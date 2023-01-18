@@ -9,10 +9,8 @@ class DisplaySuper:
     def break_item_list(self, item_list:str) -> dict:
         ans = {}
         items = item_list.split(',')
-        # ['bira-corona', 'shampoo-dove']
         for item in items:
             new_item = item.split('-')
-            # ['bira', 'corona']
             ans[(new_item[0])] = new_item[1]
         return ans
     
@@ -21,10 +19,8 @@ class DisplaySuper:
 
         PARAM = {"city":self.city}
         r = requests.get(url = URL, params=PARAM)
-        print("get respone")
 
         data = r.json()
-        print(f"data is {data}")
 
         if data["ans"] == 'error':
             return data
