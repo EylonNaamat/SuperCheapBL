@@ -26,61 +26,50 @@ app = FastAPI()
 # //////////////////////michael////////////////////////////
 @app.get("/signin")
 async def get_sighin_user(username:str, password:str):
-    print("11")
     mySingIn = SignIn(username, password)
-    print("22")
-    stam =  mySingIn.dosighin()
-    print("33")
-    return stam
+    return mySingIn.dosighin()
 
 @app.get("/mysuper/getsuper")
 async def get_super_info(Super_Id:str):
     tempMySuper = MySuper(Super_Id)
-    stam =  tempMySuper.get_super()
-    return stam
+    return tempMySuper.get_super()
 
 @app.get("/mysuper/setsuper")
 async def set_super_info(Super_Id:str, super_name:str, super_city:str):
     tempMySuper = MySuper(Super_Id)
     old_super = tempMySuper.get_super()
-    stam =  tempMySuper.set_super(super_name,super_city)
+    ansswer = tempMySuper.set_super(super_name,super_city)
     if super_city != old_super.get("super_city") :
         tempMySuper.moveSuper(old_super.get("super_city"),super_city)
-
-    return stam
+    return ansswer
 
 @app.get("/myaccount/setuser")
 async def my_acc_set_user(first_name:str, last_name:str, email:str, username:str, password:str, city:str, birth_date:str, gender:str, is_manager:str, super_id:str):
     temp_account = MyAccount({'first_name':first_name, 'last_name':last_name, 'email':email, 'username':username,
             'password':password, 'city':city, 'birth_date':birth_date, 'gender':gender, 'is_manager':is_manager,
             'super_id':super_id})
-    stam = temp_account.change_user()
-    return stam
+    return temp_account.change_user()
 
 @app.get("/addcomment")
 async def add_comment(id_comment:str, super_name:str, super_city:str, user_username:str, grade, review:str):
     tempaddComment = AddComment({'id_comment':id_comment, 'super_name':super_name, 'super_city':super_city, 'user_username':user_username,
             'grade':grade, 'review':review})
-    stam =  tempaddComment.addCommentToDataBase()
-    return stam
+    return tempaddComment.addCommentToDataBase()
     
 @app.get("/displaycomment")
 async def display_comment(super_name:str, super_city:str):
     temp_displaycomment = DisplayComment({"super_name":super_name,"super_city":super_city})
-    stam =  temp_displaycomment.getCommentsfromDataBase()
-    return stam
-    
+    return temp_displaycomment.getCommentsfromDataBase()
+
 @app.get("/displaysale")
 async def display_sale(super_name:str, super_city:str):
     temp_displaysale = DisplaySales({"super_name":super_name,"super_city":super_city})
-    stam =  temp_displaysale.getSalesfromDataBase()
-    return stam
+    return temp_displaysale.getSalesfromDataBase()
 
 @app.get("/getnewcomments")
 async def get_New_Commenst(super_ID:str):
     temp_HomePage = HomePage({"super_ID":super_ID})
-    stam =  temp_HomePage.getcomments()
-    return stam
+    return temp_HomePage.getcomments()
     
 
 # //////////////////////eylon////////////////////////////

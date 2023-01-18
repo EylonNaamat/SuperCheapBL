@@ -6,6 +6,7 @@ class DisplayComment:
 
     def getCommentsfromDataBase(self):
         URL = "http://172.17.0.3:8000/displaycomment"
+        
         r = requests.get(url = URL, params=self.super_details)
         data = r.json()
         return data
